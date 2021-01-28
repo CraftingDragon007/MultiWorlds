@@ -1,0 +1,6 @@
+# World configuration:
+# <name>:
+#   name: <name>
+#   specifiedgamemode: <true|false>
+#   gamemode: <null|survival|creative|spectator|adventure>
+#   maxslots: <Integer>

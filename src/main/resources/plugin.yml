@@ -1,0 +1,64 @@
+name: MultiWorlds
+version: ${project.version}
+main: ch.gamepowerx.multiworlds.MultiWorlds
+api-version: 1.16
+authors: [ CraftingDragon007 ]
+
+commands:
+  mwgamerule:
+    description: Aendert eine Spielregel in einer Welt
+    usage: /mwgamerule (World) <Gamerule> <Boolean/Integer>
+    permission: MW.gamerule
+  mwcreate:
+    description: Erstellt eine Welt
+    usage: "§cBenutze: /mwcreate <name> <env> (type) (generateStructures:true/false) (hardcore:true/false) (GameMode)"
+    permission: MW.create
+  mwteleport:
+    description: Teleportiert dich in eine Welt
+    usage: /mwteleport (Player) <World>
+    permission: MW.teleport
+  mwinfo:
+    description: Zeigt dir Informationen über eine Welt an.
+    usage: /mwinfo <world>
+    permission: MW.info
+  mwset:
+    description: Aendert Einstellungen der Welt.
+    usage: /mwset <Name> <Value>
+    permission: MW.set
+  mwregenerate:
+    description: Regeneriert die Welten mit den gleichen Einstellungen.
+    usage: /mwregenerate
+    permission: MW.regenerate
+  mwwhitelist:
+    description: Der Whitelist Command
+    usage: /mwwhitelist (Welt) <Add|Remove|On|Off>
+    permission: MW.whitelist
+
+permissions:
+  MW.set:
+    description: Zugriff auf /mwset
+    default: op
+  MW.createsign:
+    description: Erlaubt es ein MW Schild zu erstellen.
+    default: op
+  MW.gamerule:
+    description: Zugriff auf /mwgamerule
+    default: op
+  MW.create:
+    description: Zugriff auf /mwcreate
+    default: op
+  MW.teleport:
+    description: Zugriff auf /mwteleport
+    default: op
+  MW.bypassSlots:
+    description: Erlaubt es einer Welt beizutreten obwohl sie voll ist.
+    default: op
+  MW.bypassgamemode:
+    description: Erlaubt es den SpielModus zu behalten obwohl die Welt einen anderen SpielModus vorgibt.
+    default: op
+  MW.info:
+    description: Zugriff auf /mwinfo
+    default: op
+  MW.regenerate:
+    description: Zugriff auf /mwregenerate
+    default: op

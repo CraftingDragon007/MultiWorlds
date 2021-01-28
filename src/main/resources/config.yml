@@ -1,0 +1,15 @@
+# ######################################### #
+# # MultiWorlds by CraftingDragon007 2020 # #
+# ######################################### #
+
+firstrun: true
+
+# Only modify if you want to reset everything.
+
+standardmaxslots: 20
+
+# Standart Maximum pro Welt
+
+spawnworld: world
+
+# Die Welt in die Spieler beim joinen kommen.
