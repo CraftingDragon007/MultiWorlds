@@ -6,7 +6,7 @@
 
     <groupId>ch.gamepowerx</groupId>
     <artifactId>MultiWorlds</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>Beta 0.7</version>
     <packaging>jar</packaging>
 
     <name>MultiWorlds</name>
@@ -67,14 +67,8 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.4-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

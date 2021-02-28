@@ -33,6 +33,21 @@ commands:
     description: Der Whitelist Command
     usage: /mwwhitelist (Welt) <Add|Remove|On|Off>
     permission: MW.whitelist
+  mwblacklist:
+    description: Der Blacklist Command
+    usage: /mwblacklist (Welt) <Add|Remove|On|Off>
+    permission: MW.blacklist
+  mwdelete:
+    description: Loescht eine Welt
+    usage: /mwdelete <Welt>
+    permission: MW.delete
+  mwver:
+    description: Zeigt die MultiWorlds Version an
+    usage: /mwver
+    permission: MW.version
+    aliases:
+      - mwversion
+      - multiworldsversion
 
 permissions:
   MW.set:
@@ -61,4 +76,19 @@ permissions:
     default: op
   MW.regenerate:
     description: Zugriff auf /mwregenerate
+    default: op
+  MW.delete:
+    description: Zugriff auf /mwdelete
+    default: op
+  MW.bypassMWWBList:
+    description: Umgehung der Blacklist / Whitelist
+    default: op
+  MW.whitelist:
+    description: Zugriff auf /mwwhitelist
+    default: op
+  MW.blacklist:
+    description: Zugriff auf /mwblacklist
+    default: op
+  MW.version:
+    description: Zugriff auf /mwver
     default: op

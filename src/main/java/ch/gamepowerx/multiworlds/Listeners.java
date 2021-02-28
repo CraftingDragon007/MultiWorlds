@@ -110,6 +110,9 @@ public class Listeners implements Listener {
         }
         MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
         if(world!=null){
+            if(world.isGameModeSpecified()){
+                player.setGameMode(world.getGameMode());
+            }
             player.teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
         }
     }

@@ -13,7 +13,24 @@ import java.util.UUID;
 public class MWhitelist implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length==2&&sender instanceof Player){
+        if(args.length==1 && sender instanceof Player){
+            Player player = (Player) sender;
+            MWorld world = MultiWorlds.worldList.getMWorld(player.getWorld());
+            switch (args[0]){
+                case "off" :
+                    world.setWhitelistEnabled(false);
+                    player.sendMessage("§aDie Whitelist der Welt §6"+world.getWorld().getName()+" §awurde §cdeaktiviert§a!");
+                    break;
+                case "on" :
+                    world.setWhitelistEnabled(true);
+                    player.sendMessage("§aDie Whitelist der Welt §6"+world.getWorld().getName()+" §awurde §2aktiviert§a!");
+                    break;
+                default:
+                    player.sendMessage("§cBitte verwende: §6/mwwhitelist <add/remove/off/on> (Spieler)");
+                    break;
+            }
+        }
+        if(args.length==2 && sender instanceof Player){
             Player player = (Player) sender;
             MWorld world = MultiWorlds.worldList.getMWorld(player.getWorld());
             switch (args[0]){
@@ -45,8 +62,11 @@ public class MWhitelist implements CommandExecutor {
                     world.setWhitelistEnabled(true);
                     player.sendMessage("§aDie Whitelist der Welt §6"+world.getWorld().getName()+" §awurde §2aktiviert§a!");
                     break;
+                default:
+                    player.sendMessage("§cBitte verwende: §6/mwwhitelist <add/remove/off/on> (Spieler)");
+                    break;
             }
-        }else if(args.length==3&&MultiWorlds.worldList.getMWorld(args[0])!=null){
+        }else if(args.length==3 && MultiWorlds.worldList.getMWorld(args[0]) != null){
             MWorld world = MultiWorlds.worldList.getMWorld(args[0]);
             switch (args[1]){
                 case "add" :

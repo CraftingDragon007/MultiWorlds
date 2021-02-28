@@ -4,6 +4,7 @@ import ch.gamepowerx.multiworlds.MultiWorlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
+import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -20,7 +21,7 @@ public class MWSet implements CommandExecutor {
             if (args.length == 2) {
                 switch (args[0]) {
                     case "pvp" :
-                        if(getBoolean(args[1])!=null) {
+                        if(getBoolean(args[1]) != null) {
                             mWorld.getWorld().setPVP(getBoolean(args[1]));
                             if(getBoolean(args[1])) {
                                 player.sendMessage("§aPVP wurde in der Welt §6"+mWorld.getWorld().getName()+"§a aktiviert!");
@@ -50,6 +51,14 @@ public class MWSet implements CommandExecutor {
                     case "gamemode" :
                         try {
                             mWorld.setGameMode(GameMode.valueOf(args[1].toUpperCase()));
+                            if(mWorld.isGameModeSpecified()){
+                                for (Player p : Bukkit.getOnlinePlayers()) {
+                                    if(!p.hasPermission("MW.bypassgamemode"))
+                                        if(p.getWorld().equals(mWorld.getWorld()))
+                                           p.setGameMode(mWorld.getGameMode());
+                                }
+
+                            }
                         }catch(IllegalArgumentException e){
                             player.sendMessage("§cUngültiges Argument: "+args[1]);
                         }
@@ -62,7 +71,7 @@ public class MWSet implements CommandExecutor {
                         }
                         break;
                     case "whitelist" :
-                        if(getBoolean(args[1])!=null) {
+                        if(getBoolean(args[1]) != null) {
                             mWorld.setWhitelistEnabled(getBoolean(args[1]));
                             if(getBoolean(args[1])) {
                                 player.sendMessage("§aDie Whitelist wurde in der Welt §6" + mWorld.getWorld().getName() + "§a aktiviert!");

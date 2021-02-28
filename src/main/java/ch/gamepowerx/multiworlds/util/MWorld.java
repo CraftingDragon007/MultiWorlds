@@ -247,6 +247,16 @@ public class MWorld {
             this.leaveWorld(player);
             player.teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
         }
+        if(whitelistEnabled){
+            if(whitelist.contains(player.getUniqueId())){
+                success = true;
+            }else success = player.hasPermission("MW.bypassMWWBList");
+        }
+        if(blacklistEnabled){
+            if(!blacklist.contains(player.getUniqueId())){
+                success = true;
+            }else success = player.hasPermission("MW.bypassMWWBList");
+        }
         return success;
     }
 

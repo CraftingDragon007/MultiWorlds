@@ -1,6 +1,7 @@
 package ch.gamepowerx.multiworlds;
 
 import ch.gamepowerx.multiworlds.commands.*;
+import ch.gamepowerx.multiworlds.tabcompleter.MWWBList;
 import ch.gamepowerx.multiworlds.tabcompleter.Worlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
 import ch.gamepowerx.multiworlds.util.MWorldList;
@@ -28,9 +29,11 @@ public final class MultiWorlds extends JavaPlugin {
     public static FileConfiguration config;
     public static HashMap<String,UUID> tempNames = new HashMap<>();
     public static List<CommandSender> tempHelp = new ArrayList<>();
+    private static String version;
 
     @Override
     public void onEnable() {
+        version = getDescription().getVersion();
         loadConfig();
         loadWorlds();
         registerCommandsAndListener();
@@ -129,8 +132,8 @@ public final class MultiWorlds extends JavaPlugin {
             for(UUID uuid : mWorld.getBlacklist()){
                 blacklist.add(uuid.toString());
             }
-            worldsConfig.set(worldName+".whitelist",whitelist);
-            worldsConfig.set(worldName+".blacklist",blacklist);
+            worldsConfig.set(worldName + ".whitelist",whitelist);
+            worldsConfig.set(worldName + ".blacklist",blacklist);
         }
     }
 
@@ -176,6 +179,16 @@ public final class MultiWorlds extends JavaPlugin {
         getCommand("mwset").setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWSet());
         getCommand("mwregenerate").setExecutor(new MWRegenerate());
         getCommand("mwwhitelist").setExecutor(new MWhitelist());
+        getCommand("mwwhitelist").setTabCompleter(new MWWBList());
+        getCommand("mwblacklist").setExecutor(new MWBlacklist());
+        getCommand("mwblacklist").setTabCompleter(new MWWBList());
+        getCommand("mwdelete").setExecutor(new MWDelete());
+        getCommand("mwdelete").setTabCompleter(new Worlds());
+        getCommand("mwver").setExecutor(new MWVer());
         Bukkit.getPluginManager().registerEvents(new Listeners(),this);
+    }
+
+    public static String getVersion(){
+        return version;
     }
 }
