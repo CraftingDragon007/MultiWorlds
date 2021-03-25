@@ -46,7 +46,6 @@ commands:
     usage: /mwver
     permission: MW.version
     aliases:
-      - mwversion
       - multiworldsversion
 
 permissions:

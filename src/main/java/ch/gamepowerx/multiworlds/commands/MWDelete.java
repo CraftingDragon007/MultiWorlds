@@ -26,6 +26,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,14 @@ public class MWDelete implements CommandExecutor {
         MWorld mWorld = MultiWorlds.worldList.getMWorld(args[0]);
         if (mWorld != null) {
             File file = new File(Bukkit.getWorldContainer() + "/" + mWorld.getWorld().getName());
+            for (Player player : Bukkit.getOnlinePlayers()){
+                if(player.getWorld().equals(mWorld.getWorld())){
+                    MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
+                    if(world!=null){
+                        player.teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                    }else player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                }
+            }
             Bukkit.unloadWorld(mWorld.getWorld(),false);
             MultiWorlds.worldList.remove(mWorld);
             boolean result = deleteDirectory(file);

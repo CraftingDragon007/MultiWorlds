@@ -6,7 +6,7 @@
 
     <groupId>ch.gamepowerx</groupId>
     <artifactId>MultiWorlds</artifactId>
-    <version>Beta 0.7</version>
+    <version>Beta 0.7.1</version>
     <packaging>jar</packaging>
 
     <name>MultiWorlds</name>

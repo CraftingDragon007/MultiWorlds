@@ -29,6 +29,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -48,9 +49,16 @@ public final class MultiWorlds extends JavaPlugin {
     public static HashMap<String,UUID> tempNames = new HashMap<>();
     public static List<CommandSender> tempHelp = new ArrayList<>();
     private static String version;
+    private static MultiWorlds plugin;
+
+    public static MultiWorlds getPlugin() {
+        return plugin;
+    }
 
     @Override
     public void onEnable() {
+        plugin = this;
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         version = getDescription().getVersion();
         loadConfig();
         loadWorlds();
@@ -137,11 +145,11 @@ public final class MultiWorlds extends JavaPlugin {
     public void saveWorldsToConfig(){
         for(MWorld mWorld : worldList){
             String worldName = mWorld.getWorld().getName();
-            worldsConfig.set(worldName+".name",worldName);
-            worldsConfig.set(worldName+".specifiedgamemode",mWorld.isGameModeSpecified());
+            worldsConfig.set(worldName + ".name",worldName);
+            worldsConfig.set(worldName + ".specifiedgamemode",mWorld.isGameModeSpecified());
             if(mWorld.isGameModeSpecified())
-            worldsConfig.set(worldName+".gamemode",mWorld.getGameMode().toString());
-            worldsConfig.set(worldName+".maxslots",mWorld.getMaxPlayers());
+            worldsConfig.set(worldName + ".gamemode",mWorld.getGameMode().toString());
+            worldsConfig.set(worldName + ".maxslots",mWorld.getMaxPlayers());
             List<String> whitelist = new ArrayList<>();
             List<String> blacklist = new ArrayList<>();
             for(UUID uuid : mWorld.getWhitelist()){

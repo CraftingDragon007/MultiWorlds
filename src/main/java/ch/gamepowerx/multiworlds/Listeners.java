@@ -31,6 +31,9 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Listeners implements Listener {
@@ -98,6 +101,12 @@ public class Listeners implements Listener {
                 event.setLine(2,"§aKlicken zum");
                 event.setLine(3,"§aTeleportieren");
             }
+        }else if(event.getLine(0).contains("[Server]")){
+            String server = event.getLine(1);
+            event.setLine(0, "§6[§aServer§6]");
+            event.setLine(1,"§6" + server);
+            event.setLine(2,"§aKlicken zum");
+            event.setLine(3,"§aVerbinden");
         }
     }
     @EventHandler
@@ -116,6 +125,18 @@ public class Listeners implements Listener {
                     if(mWorld!=null){
                         event.getPlayer().teleport(mWorld.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
                     }
+                }else if(line1.contains("§6[§aServer§6]")){
+                    Player player = event.getPlayer();
+                    player.sendMessage("§aVerbinde mit §6" + line2 + "§a!");
+                    ByteArrayOutputStream b = new ByteArrayOutputStream();
+                    DataOutputStream out = new DataOutputStream(b);
+                    try {
+                        out.writeUTF("Connect");
+                        out.writeUTF(line2.substring(2));
+                    } catch (IOException eee) {
+                        eee.printStackTrace();
+                    }
+                    player.sendPluginMessage(MultiWorlds.getPlugin(), "BungeeCord", b.toByteArray());
                 }
             }
         }
