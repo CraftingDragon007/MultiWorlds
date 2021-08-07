@@ -20,8 +20,6 @@ package ch.gamepowerx.multiworlds.commands;
 
 import ch.gamepowerx.multiworlds.MultiWorlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
@@ -110,7 +108,6 @@ public class MWSet implements CommandExecutor {
         return true;
     }
 
-    @Nullable
     private Boolean getBoolean(String value){
         if(value.equalsIgnoreCase("true")){
             return true;

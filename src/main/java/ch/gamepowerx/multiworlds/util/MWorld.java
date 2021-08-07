@@ -19,7 +19,6 @@
 package ch.gamepowerx.multiworlds.util;
 
 import ch.gamepowerx.multiworlds.MultiWorlds;
-import com.sun.istack.internal.*;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -209,23 +208,19 @@ public class MWorld {
 
     }
 
-    @NotNull
     public boolean isGameModeSpecified(){
         return specificGameMode;
     }
 
-    @NotNull
     public boolean isWhitelistEnabled() {
         return whitelistEnabled;
     }
 
-    @NotNull
     public boolean isBlacklistEnabled(){
         return blacklistEnabled;
     }
 
-    @NotNull
-    public List<Player> joinWorld(@NotNull Player player){
+    public List<Player> joinWorld( Player player){
         if(playerList.size()<maxPlayers){
             if(!playerList.contains(player)){
                 playerList.add(player);
@@ -244,8 +239,7 @@ public class MWorld {
         return playerList;
     }
 
-    @NotNull
-    public boolean joinWorld(@NotNull Player player, World fallbackWorld){
+    public boolean joinWorld(Player player, World fallbackWorld){
         boolean success = false;
         if(playerList.size()<maxPlayers){
             if(!playerList.contains(player)){
@@ -278,7 +272,7 @@ public class MWorld {
         return success;
     }
 
-    public List<Player> leaveWorld(@NotNull Player player){
+    public List<Player> leaveWorld(Player player){
         playerList.remove(player);
         return playerList;
     }
@@ -292,40 +286,34 @@ public class MWorld {
         this.specificGameMode = true;
     }
 
-    public void setWhitelistEnabled(@NotNull boolean enabled){
+    public void setWhitelistEnabled(boolean enabled){
         this.whitelistEnabled = enabled;
     }
 
-    public void setBlacklistEnabled(@NotNull boolean enabled){
+    public void setBlacklistEnabled(boolean enabled){
         this.blacklistEnabled = enabled;
     }
 
-    @NotNull
     public List<UUID> getWhitelist(){
         return whitelist;
     }
 
-    @NotNull
     public List<UUID> getBlacklist(){
         return blacklist;
     }
 
-    @Nullable
     public GameMode getGameMode() {
         return gameMode;
     }
 
-    @NotNull
     public Integer getPlayerCount(){
         return playerList.size();
     }
 
-    @NotNull
     public Integer getMaxPlayers(){
         return maxPlayers;
     }
 
-    @NotNull
     public World getWorld(){
         return world;
     }

@@ -20,7 +20,6 @@ package ch.gamepowerx.multiworlds.commands;
 
 import ch.gamepowerx.multiworlds.MultiWorlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -40,7 +39,7 @@ import java.util.List;
 public class MWRegenerate implements CommandExecutor {
     private final List<WorldCreator> creators = new ArrayList<>();
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Bukkit.broadcastMessage("§eDie Welt/en werden regeneriert, du wirst gekickt!");
         MultiWorlds.isInRegeneration = true;
         for(Player player : Bukkit.getOnlinePlayers()){

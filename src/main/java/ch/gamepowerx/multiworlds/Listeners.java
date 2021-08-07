@@ -57,11 +57,13 @@ public class Listeners implements Listener {
     }
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
-        MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
-        if(world!=null){
-            MWorld world1 = MultiWorlds.worldList.getMWorld(event.getPlayer().getWorld());
-            world1.leaveWorld(event.getPlayer());
-            event.getPlayer().teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+        if(MultiWorlds.config.getBoolean("enable-spawn-on-join")) {
+            MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
+            if (world != null) {
+                MWorld world1 = MultiWorlds.worldList.getMWorld(event.getPlayer().getWorld());
+                world1.leaveWorld(event.getPlayer());
+                event.getPlayer().teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+            }
         }
     }
 

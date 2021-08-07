@@ -18,8 +18,6 @@
 
 package ch.gamepowerx.multiworlds.util;
 
-import com.sun.istack.internal.*;
-
 import org.bukkit.*;
 
 import java.util.*;
@@ -30,7 +28,6 @@ public class MWorldList extends ArrayList<MWorld> {
         this.addAll(Arrays.asList(worlds));
     }
 
-    @Nullable
     public MWorld getMWorld(World world){
         if(containsWorld(world)){
             for(MWorld mWorld : this){
@@ -42,7 +39,6 @@ public class MWorldList extends ArrayList<MWorld> {
         return null;
     }
 
-    @Nullable
     public MWorld getMWorld(String worldName){
         World world = Bukkit.getWorld(worldName);
         if(world!=null){
@@ -51,7 +47,6 @@ public class MWorldList extends ArrayList<MWorld> {
         return null;
     }
 
-    @Nullable
     public Collection<String> getWorldNames(){
         Collection<String> worldNames = new ArrayList<>();
         for(MWorld world : this){
@@ -60,7 +55,6 @@ public class MWorldList extends ArrayList<MWorld> {
         return worldNames;
     }
 
-    @NotNull
     public boolean containsWorld(World world){
         for(MWorld mWorld : this){
             if(mWorld.getWorld().equals(world)){

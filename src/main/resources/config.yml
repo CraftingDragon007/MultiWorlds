@@ -10,6 +10,10 @@ standardmaxslots: 20
 
 # Standart Maximum pro Welt
 
+enable-spawn-on-join: false
+
+# Ob der Spieler beim joinen zum Spawn teleportiert wird
+
 spawnworld: world
 
 # Die Welt in die Spieler beim joinen kommen.

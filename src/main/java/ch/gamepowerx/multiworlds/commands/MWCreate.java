@@ -26,7 +26,6 @@ import org.bukkit.WorldType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import com.sun.istack.internal.*;
 
 public class MWCreate implements CommandExecutor {
     @Override
@@ -70,7 +69,6 @@ public class MWCreate implements CommandExecutor {
         }
     }
 
-   @NotNull
    private Boolean isWorldType(String type) {
        try {
            WorldType.valueOf(type.toUpperCase());
@@ -80,7 +78,6 @@ public class MWCreate implements CommandExecutor {
        }
    }
 
-   @NotNull
    private Boolean isGameMode(String gameMode){
        try {
            GameMode.valueOf(gameMode);
