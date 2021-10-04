@@ -8,7 +8,7 @@ firstrun: true
 
 standardmaxslots: 20
 
-# Standart Maximum pro Welt
+# Standard Maximum pro Welt
 
 enable-spawn-on-join: false
 

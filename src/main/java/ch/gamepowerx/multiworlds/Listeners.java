@@ -19,8 +19,6 @@
 package ch.gamepowerx.multiworlds;
 
 import ch.gamepowerx.multiworlds.util.MWorld;
-import com.sun.org.apache.xpath.internal.operations.Mult;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
@@ -36,11 +34,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class Listeners implements Listener {
     @EventHandler
     public void onPlayerTeleportEvent(PlayerTeleportEvent event){
         if(event.getTo()!=null){
-            if(!event.getTo().getWorld().equals(event.getFrom().getWorld())){
+            if(!Objects.requireNonNull(event.getTo().getWorld()).equals(event.getFrom().getWorld())){
                 MWorld worldFrom = MultiWorlds.worldList.getMWorld(event.getFrom().getWorld());
                 worldFrom.leaveWorld(event.getPlayer());
                 MWorld worldTo = MultiWorlds.worldList.getMWorld(event.getTo().getWorld());
@@ -49,6 +48,7 @@ public class Listeners implements Listener {
                     return;
                 }
                 if(worldTo.isGameModeSpecified()){
+                    //noinspection SpellCheckingInspection
                     if(!event.getPlayer().hasPermission("MW.bypassgamemode"))
                     event.getPlayer().setGameMode(worldTo.getGameMode());
                 }
@@ -58,7 +58,7 @@ public class Listeners implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
         if(MultiWorlds.config.getBoolean("enable-spawn-on-join")) {
-            MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
+            @SuppressWarnings("SpellCheckingInspection") MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
             if (world != null) {
                 MWorld world1 = MultiWorlds.worldList.getMWorld(event.getPlayer().getWorld());
                 world1.leaveWorld(event.getPlayer());
@@ -80,6 +80,7 @@ public class Listeners implements Listener {
             world.leaveWorld(event.getPlayer());
         }
     }
+    @SuppressWarnings("SpellCheckingInspection")
     @EventHandler
     public void onPlayerGameModeChangeEvent(PlayerGameModeChangeEvent event){
         MWorld world = MultiWorlds.worldList.getMWorld(event.getPlayer().getWorld());
@@ -95,7 +96,7 @@ public class Listeners implements Listener {
     public void onPlayerSignEdit(SignChangeEvent event){
         if(event.getPlayer().hasPermission("MW.createsign"))
         if(event.getLine(0)!=null)
-        if(event.getLine(0).contains("[MWTeleport]")){
+        if(Objects.requireNonNull(event.getLine(0)).contains("[MWTeleport]")){
             MWorld mWorld = MultiWorlds.worldList.getMWorld(event.getLine(1));
             if(mWorld!=null){
                 event.setLine(0, "§6[§aMWTeleport§6]");
@@ -103,7 +104,7 @@ public class Listeners implements Listener {
                 event.setLine(2,"§aKlicken zum");
                 event.setLine(3,"§aTeleportieren");
             }
-        }else if(event.getLine(0).contains("[Server]")){
+        }else if(Objects.requireNonNull(event.getLine(0)).contains("[Server]")){
             String server = event.getLine(1);
             event.setLine(0, "§6[§aServer§6]");
             event.setLine(1,"§6" + server);

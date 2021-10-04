@@ -29,25 +29,22 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+@SuppressWarnings("ALL")
 public final class MultiWorlds extends JavaPlugin {
     public static boolean isInRegeneration = false;
     public static MWorldList worldList;
     public static FileConfiguration worldsConfig;
     public static FileConfiguration config;
-    public static HashMap<String,UUID> tempNames = new HashMap<>();
-    public static List<CommandSender> tempHelp = new ArrayList<>();
+    public static final HashMap<String,UUID> tempNames = new HashMap<>();
+    public static final List<CommandSender> tempHelp = new ArrayList<>();
     private static String version;
     private static MultiWorlds plugin;
 
@@ -117,7 +114,7 @@ public final class MultiWorlds extends JavaPlugin {
                         blacklist.add(UUID.fromString(uuid));
                     }
                     if(worldsConfig.getBoolean(worldName+".specifiedgamemode")) {
-                        MWorld mWorld = new MWorld(world, worldsConfig.getInt(worldName + ".maxslots"),GameMode.valueOf(worldsConfig.getString(worldName + ".gamemode").toUpperCase()),whitelist,blacklist);
+                        MWorld mWorld = new MWorld(world, worldsConfig.getInt(worldName + ".maxslots"),GameMode.valueOf(Objects.requireNonNull(worldsConfig.getString(worldName + ".gamemode")).toUpperCase()),whitelist,blacklist);
                         worldList.add(mWorld);
                     }else {
                         MWorld mWorld = new MWorld(world,worldsConfig.getInt(worldName + ".maxslots"),whitelist,blacklist);
@@ -193,24 +190,24 @@ public final class MultiWorlds extends JavaPlugin {
     }
 
     private void registerCommandsAndListener(){
-        getCommand("mwgamerule").setExecutor(new MWGameRule());
-        getCommand("mwgamerule").setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWGameRule());
-        getCommand("mwcreate").setExecutor(new MWCreate());
-        getCommand("mwcreate").setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWCreate());
-        getCommand("mwteleport").setExecutor(new MWTeleport());
-        getCommand("mwteleport").setTabCompleter(new Worlds());
-        getCommand("mwinfo").setExecutor(new MWInfo());
-        getCommand("mwinfo").setTabCompleter(new Worlds());
-        getCommand("mwset").setExecutor(new MWSet());
-        getCommand("mwset").setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWSet());
-        getCommand("mwregenerate").setExecutor(new MWRegenerate());
-        getCommand("mwwhitelist").setExecutor(new MWhitelist());
-        getCommand("mwwhitelist").setTabCompleter(new MWWBList());
-        getCommand("mwblacklist").setExecutor(new MWBlacklist());
-        getCommand("mwblacklist").setTabCompleter(new MWWBList());
-        getCommand("mwdelete").setExecutor(new MWDelete());
-        getCommand("mwdelete").setTabCompleter(new Worlds());
-        getCommand("mwver").setExecutor(new MWVer());
+        Objects.requireNonNull(getCommand("mwgamerule")).setExecutor(new MWGameRule());
+        Objects.requireNonNull(getCommand("mwgamerule")).setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWGameRule());
+        Objects.requireNonNull(getCommand("mwcreate")).setExecutor(new MWCreate());
+        Objects.requireNonNull(getCommand("mwcreate")).setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWCreate());
+        Objects.requireNonNull(getCommand("mwteleport")).setExecutor(new MWTeleport());
+        Objects.requireNonNull(getCommand("mwteleport")).setTabCompleter(new Worlds());
+        Objects.requireNonNull(getCommand("mwinfo")).setExecutor(new MWInfo());
+        Objects.requireNonNull(getCommand("mwinfo")).setTabCompleter(new Worlds());
+        Objects.requireNonNull(getCommand("mwset")).setExecutor(new MWSet());
+        Objects.requireNonNull(getCommand("mwset")).setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWSet());
+        Objects.requireNonNull(getCommand("mwregenerate")).setExecutor(new MWRegenerate());
+        Objects.requireNonNull(getCommand("mwwhitelist")).setExecutor(new MWhitelist());
+        Objects.requireNonNull(getCommand("mwwhitelist")).setTabCompleter(new MWWBList());
+        Objects.requireNonNull(getCommand("mwblacklist")).setExecutor(new MWBlacklist());
+        Objects.requireNonNull(getCommand("mwblacklist")).setTabCompleter(new MWWBList());
+        Objects.requireNonNull(getCommand("mwdelete")).setExecutor(new MWDelete());
+        Objects.requireNonNull(getCommand("mwdelete")).setTabCompleter(new Worlds());
+        Objects.requireNonNull(getCommand("mwver")).setExecutor(new MWVer());
         Bukkit.getPluginManager().registerEvents(new Listeners(),this);
     }
 

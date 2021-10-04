@@ -25,13 +25,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-
+@SuppressWarnings("ALL")
 public class MWGameRule implements CommandExecutor {
 
+    @SuppressWarnings("rawtypes")
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         GameRule<Boolean> booleanGameRule = null;
         GameRule<Integer> integerGameRule = null;
         Class type = null;
@@ -319,63 +321,31 @@ public class MWGameRule implements CommandExecutor {
         if(type.equals(Boolean.class)){
             if(args.length==2){
                 if(args[1].equalsIgnoreCase("true")){
-                    mWorld.getWorld().setGameRule(booleanGameRule,true);
+                    mWorld.getWorld().setGameRule(Objects.requireNonNull(booleanGameRule),true);
                     sender.sendMessage("§aIn der Welt §6"+mWorld.getWorld().getName()+" §awurde die Spielregel §6"+booleanGameRule.getName()+" §aauf §6"+args[1]+" §agesetzt!");
                 }else if(args[1].equalsIgnoreCase("false")){
-                    mWorld.getWorld().setGameRule(booleanGameRule,false);
+                    mWorld.getWorld().setGameRule(Objects.requireNonNull(booleanGameRule),false);
                     sender.sendMessage("§aIn der Welt §6"+mWorld.getWorld().getName()+" §awurde die Spielregel §6"+booleanGameRule.getName()+" §aauf §6"+args[1]+" §agesetzt!");
                 }
             }else {
                 if(args[2].equalsIgnoreCase("true")){
-                    mWorld.getWorld().setGameRule(booleanGameRule,true);
+                    mWorld.getWorld().setGameRule(Objects.requireNonNull(booleanGameRule),true);
                     sender.sendMessage("§aIn der Welt §6"+mWorld.getWorld().getName()+" §awurde die Spielregel §6"+booleanGameRule.getName()+" §aauf §6"+args[2]+" §agesetzt!");
                 }else if(args[2].equalsIgnoreCase("false")){
-                    mWorld.getWorld().setGameRule(booleanGameRule,false);
+                    mWorld.getWorld().setGameRule(Objects.requireNonNull(booleanGameRule),false);
                     sender.sendMessage("§aIn der Welt §6"+mWorld.getWorld().getName()+" §awurde die Spielregel §6"+booleanGameRule.getName()+" §aauf §6"+args[2]+" §agesetzt!");
                 }
             }
         }else if(type.equals(Integer.class)){
             if(args.length==2){
-                mWorld.getWorld().setGameRule(integerGameRule,Integer.parseInt(args[1]));
+                mWorld.getWorld().setGameRule(Objects.requireNonNull(integerGameRule),Integer.parseInt(args[1]));
                 sender.sendMessage("§aIn der Welt §6"+mWorld.getWorld().getName()+" §awurde die Spielregel §6"+integerGameRule.getName()+" §aauf §6"+args[1]+" §agesetzt!");
             }else {
-                mWorld.getWorld().setGameRule(integerGameRule,Integer.parseInt(args[2]));
+                mWorld.getWorld().setGameRule(Objects.requireNonNull(integerGameRule),Integer.parseInt(args[2]));
                 sender.sendMessage("§aIn der Welt §6"+mWorld.getWorld().getName()+" §awurde die Spielregel §6"+integerGameRule.getName()+" §aauf §6"+args[2]+" §agesetzt!");
             }
         }
 
-        /*
-        if(args.length==3){
-            MWorld world = MultiWorlds.worldList.getMWorld(args[0]);
-            if(world!=null&&GameRule.getByName(args[1].toUpperCase())!=null&&args[2]!=null){
-                args[1] = args[1].toUpperCase();
-                if(Objects.requireNonNull(GameRule.getByName(args[1])).getType().equals(Integer.class)){
-                    GameRule<Integer> gameRule = (GameRule<Integer>) GameRule.getByName(args[1]);
-                    assert gameRule != null;
-                    world.getWorld().setGameRule(gameRule,Integer.parseInt(args[1]));
-                }else if(Objects.requireNonNull(GameRule.getByName(args[1])).getType().equals(Boolean.class)){
-                    Boolean bool = null;
-                    if(args[2].equalsIgnoreCase("true")){
-                        bool = true;
-                    }else
-                        if(args[2].equalsIgnoreCase("false")){
-                            bool = false;
-                        }
-                    if(bool!=null) {
-                        GameRule<Boolean> gameRule = (GameRule<Boolean>) GameRule.getByName(args[1]);
-                        assert gameRule != null;
-                        world.getWorld().setGameRule(gameRule, bool);
-                    }
-                }else sender.sendMessage("Error");
-
-            }else sender.sendMessage("Error Ungültige Argumente");
-        }else if(args.length==2){
-            if(sender instanceof Player){
-
-            }
-        }
-
-         */
         return true;
     }
 }

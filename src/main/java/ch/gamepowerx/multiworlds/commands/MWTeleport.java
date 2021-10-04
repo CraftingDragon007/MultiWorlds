@@ -21,15 +21,15 @@ package ch.gamepowerx.multiworlds.commands;
 import ch.gamepowerx.multiworlds.MultiWorlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class MWTeleport implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(args.length==1) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;

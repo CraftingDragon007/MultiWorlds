@@ -21,19 +21,18 @@ package ch.gamepowerx.multiworlds.commands;
 import ch.gamepowerx.multiworlds.MultiWorlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
-
+@SuppressWarnings("ALL")
 public class MWDelete implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         MWorld mWorld = MultiWorlds.worldList.getMWorld(args[0]);
         if (mWorld != null) {
             File file = new File(Bukkit.getWorldContainer() + "/" + mWorld.getWorld().getName());

@@ -24,9 +24,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+@SuppressWarnings("ALL")
 
 public class MWorld {
     private final World world;
@@ -195,8 +195,7 @@ public class MWorld {
         worldCreator.hardcore(false);
         if(gameMode!=null) {
             this.gameMode = gameMode;
-            this.specificGameMode = true;
-        }else this.specificGameMode = false;
+        }
         this.specificGameMode = false;
         this.whitelistEnabled = false;
         this.blacklistEnabled = false;
@@ -220,7 +219,7 @@ public class MWorld {
         return blacklistEnabled;
     }
 
-    public List<Player> joinWorld( Player player){
+    public void joinWorld(Player player){
         if(playerList.size()<maxPlayers){
             if(!playerList.contains(player)){
                 playerList.add(player);
@@ -236,7 +235,6 @@ public class MWorld {
                 player.teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
             }
         }
-        return playerList;
     }
 
     public boolean joinWorld(Player player, World fallbackWorld){
@@ -272,9 +270,8 @@ public class MWorld {
         return success;
     }
 
-    public List<Player> leaveWorld(Player player){
+    public void leaveWorld(Player player){
         playerList.remove(player);
-        return playerList;
     }
 
     public void setMaxPlayers(Integer maxPlayers){

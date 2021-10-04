@@ -27,10 +27,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+@SuppressWarnings("ALL")
 
 public class MWSet implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             MWorld mWorld = MultiWorlds.worldList.getMWorld(player.getWorld());
@@ -38,8 +40,8 @@ public class MWSet implements CommandExecutor {
                 switch (args[0]) {
                     case "pvp" :
                         if(getBoolean(args[1]) != null) {
-                            mWorld.getWorld().setPVP(getBoolean(args[1]));
-                            if(getBoolean(args[1])) {
+                            mWorld.getWorld().setPVP(Boolean.TRUE.equals(getBoolean(args[1])));
+                            if(Boolean.TRUE.equals(getBoolean(args[1]))) {
                                 player.sendMessage("§aPVP wurde in der Welt §6"+mWorld.getWorld().getName()+"§a aktiviert!");
                             }else player.sendMessage("§aPVP wurde in der Welt §6"+mWorld.getWorld().getName()+"§a deaktiviert!");
                         }else player.sendMessage("§cUngültiges Argument: "+args[1]);
@@ -88,16 +90,16 @@ public class MWSet implements CommandExecutor {
                         break;
                     case "whitelist" :
                         if(getBoolean(args[1]) != null) {
-                            mWorld.setWhitelistEnabled(getBoolean(args[1]));
-                            if(getBoolean(args[1])) {
+                            mWorld.setWhitelistEnabled(Boolean.TRUE.equals(getBoolean(args[1])));
+                            if(Boolean.TRUE.equals(getBoolean(args[1]))) {
                                 player.sendMessage("§aDie Whitelist wurde in der Welt §6" + mWorld.getWorld().getName() + "§a aktiviert!");
                             }else player.sendMessage("§aDie Whitelist wurde in der Welt §6" + mWorld.getWorld().getName() + "§a deaktiviert!");
                         }else player.sendMessage("§cUngültiges Argument: "+args[1]);
                         break;
                     case "blacklist" :
                         if(getBoolean(args[1])!=null) {
-                            mWorld.setBlacklistEnabled(getBoolean(args[1]));
-                            if(getBoolean(args[1])) {
+                            mWorld.setBlacklistEnabled(Boolean.TRUE.equals(getBoolean(args[1])));
+                            if(Boolean.TRUE.equals(getBoolean(args[1]))) {
                                 player.sendMessage("§aDie Blacklist wurde in der Welt §6" + mWorld.getWorld().getName() + "§a aktiviert!");
                             }else player.sendMessage("§aDie Blacklist wurde in der Welt §6" + mWorld.getWorld().getName() + "§a deaktiviert!");
                         }else player.sendMessage("§cUngültiges Argument: "+args[1]);

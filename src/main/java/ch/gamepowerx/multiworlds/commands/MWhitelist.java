@@ -25,12 +25,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.UUID;
+@SuppressWarnings("ALL")
 
 public class MWhitelist implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(args.length==1 && sender instanceof Player){
             Player player = (Player) sender;
             MWorld world = MultiWorlds.worldList.getMWorld(player.getWorld());
@@ -62,7 +65,7 @@ public class MWhitelist implements CommandExecutor {
                 case "remove" :
                     if(Bukkit.getPlayer(args[1])!=null){
                         Player target1 = Bukkit.getPlayer(args[1]);
-                        if(world.getWhitelist().remove(target1.getUniqueId())){
+                        if(world.getWhitelist().remove(Objects.requireNonNull(target1).getUniqueId())){
                             player.sendMessage("§aDer Spieler §6"+target1.getName()+"§a wurde von der Whitelist der Welt §6"+world.getWorld().getName()+"§a entfernt!");
                         }else player.sendMessage("§cDer Spieler §6"+target1.getName() + "§c war nicht auf der Whitelist der Welt §6"+world.getWorld().getName()+"§c!");
                     }else if(MultiWorlds.tempNames.containsKey(args[1])){
@@ -97,7 +100,7 @@ public class MWhitelist implements CommandExecutor {
                 case "remove" :
                     if(Bukkit.getPlayer(args[1])!=null){
                         Player target1 = Bukkit.getPlayer(args[2]);
-                        if(world.getWhitelist().remove(target1.getUniqueId())){
+                        if(world.getWhitelist().remove(Objects.requireNonNull(target1).getUniqueId())){
                             sender.sendMessage("§aDer Spieler §6"+target1.getName()+"§a wurde von der Whitelist der Welt §6"+world.getWorld().getName()+"§a entfernt!");
                         }else sender.sendMessage("§cDer Spieler §6"+target1.getName() + "§c war nicht auf der Whitelist der Welt §6"+world.getWorld().getName()+"§c!");
                     }else if(MultiWorlds.tempNames.containsKey(args[2])){

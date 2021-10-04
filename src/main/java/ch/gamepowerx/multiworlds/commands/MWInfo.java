@@ -24,16 +24,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
+@SuppressWarnings("deprecation")
 public class MWInfo implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(args.length==1) {
             MWorld world = MultiWorlds.worldList.getMWorld(args[0]);
             if (world != null) {
                 sender.sendMessage("-----------------------------------------------------");
                 sender.sendMessage("Name: " + world.getWorld().getName());
                 sender.sendMessage("Slots: " + world.getPlayerCount() + " / " + world.getMaxPlayers());
+                if(world.getWorld().getWorldType()!=null)
                 sender.sendMessage("Type: " + world.getWorld().getWorldType().getName());
                 if (world.isGameModeSpecified())
                     sender.sendMessage("GameMode: " + world.getGameMode().name().toLowerCase());
@@ -49,16 +54,15 @@ public class MWInfo implements CommandExecutor {
                     sender.sendMessage("-----------------------------------------------------");
                     sender.sendMessage("Name: " + world.getWorld().getName());
                     sender.sendMessage("Slots: " + world.getPlayerCount() + " / " + world.getMaxPlayers());
-                    if(world.getWorld().getWorldType().getName()!=null)
-                    sender.sendMessage("Type: " + world.getWorld().getWorldType().getName());
+                    world.getWorld().getWorldType();
+                    sender.sendMessage("Type: " + Objects.requireNonNull(world.getWorld().getWorldType()).getName());
                     if (world.isGameModeSpecified())
                         sender.sendMessage("GameMode: " + world.getGameMode().name().toLowerCase());
                     sender.sendMessage("-----------------------------------------------------");
-                    return true;
                 } else {
                     sender.sendMessage("§cError die Welt existiert nicht oder wurde nicht geladen!");
-                    return true;
                 }
+                return true;
             }else
             return false;
         }

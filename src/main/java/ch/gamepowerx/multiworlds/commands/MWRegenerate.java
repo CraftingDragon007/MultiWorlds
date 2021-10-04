@@ -29,17 +29,20 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@SuppressWarnings({"deprecation", "unused"})
 public class MWRegenerate implements CommandExecutor {
     private final List<WorldCreator> creators = new ArrayList<>();
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         Bukkit.broadcastMessage("§eDie Welt/en werden regeneriert, du wirst gekickt!");
         MultiWorlds.isInRegeneration = true;
         for(Player player : Bukkit.getOnlinePlayers()){
@@ -60,7 +63,7 @@ public class MWRegenerate implements CommandExecutor {
 
     void delete(File f) throws IOException {
         if (f.isDirectory()) {
-            for (File c : f.listFiles())
+            for (File c : Objects.requireNonNull(f.listFiles()))
                 delete(c);
         }
         if (!f.delete())

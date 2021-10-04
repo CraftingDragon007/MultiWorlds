@@ -23,6 +23,7 @@ import ch.gamepowerx.multiworlds.util.MWorld;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ import java.util.List;
 public class Worlds implements TabCompleter {
     private final List<String> completer = new ArrayList<>();
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         completer.clear();
         for(MWorld mworld : MultiWorlds.worldList){
             completer.add(mworld.getWorld().getName());

@@ -23,18 +23,20 @@ import org.bukkit.GameRule;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+@SuppressWarnings("ALL")
 
 public class MWGameRule implements TabCompleter {
     private final List<String> completer = new ArrayList<>();
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         completer.clear();
         GameRule<Boolean> booleanGameRule = null;
         GameRule<Integer> integerGameRule = null;
-        Class type = null;
+        @SuppressWarnings("rawtypes") Class type = null;
         if(args.length==1){
             completer.addAll(MultiWorlds.worldList.getWorldNames());
         }else if(args.length==2){
@@ -207,18 +209,17 @@ public class MWGameRule implements TabCompleter {
                     break;
             }
             if(booleanGameRule!=null|integerGameRule!=null)
-                if(type!=null)
-                    if(type.equals(Boolean.class)){
-                        completer.add("true");
-                        completer.add("false");
-                    }else if(type.equals(Integer.class)){
-                        completer.add(String.valueOf(0));
-                        completer.add(String.valueOf(1));
-                        completer.add(String.valueOf(2));
-                        completer.add(String.valueOf(3));
-                        completer.add(String.valueOf(4));
-                        completer.add(String.valueOf(5));
-                    }
+                if(type.equals(Boolean.class)){
+                    completer.add("true");
+                    completer.add("false");
+                }else if(type.equals(Integer.class)){
+                    completer.add(String.valueOf(0));
+                    completer.add(String.valueOf(1));
+                    completer.add(String.valueOf(2));
+                    completer.add(String.valueOf(3));
+                    completer.add(String.valueOf(4));
+                    completer.add(String.valueOf(5));
+                }
         }
         return completer;
     }
