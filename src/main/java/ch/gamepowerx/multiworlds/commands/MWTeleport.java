@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 public class MWTeleport implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if(args.length==1) {
+        if (args.length == 1) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 MWorld mWorld = MultiWorlds.worldList.getMWorld(args[0]);
@@ -38,9 +38,9 @@ public class MWTeleport implements CommandExecutor {
                     player.teleport(mWorld.getWorld().getSpawnLocation());
                 }
             }
-        }else if(args.length==2){
+        } else if (args.length == 2) {
             Player target = Bukkit.getPlayer(args[0]);
-            if(target!=null){
+            if (target != null) {
                 MWorld mWorld = MultiWorlds.worldList.getMWorld(args[1]);
                 if (mWorld != null) {
                     target.teleport(mWorld.getWorld().getSpawnLocation());

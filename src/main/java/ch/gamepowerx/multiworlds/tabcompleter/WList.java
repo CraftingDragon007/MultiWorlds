@@ -36,31 +36,32 @@ import java.util.UUID;
 @SuppressWarnings("ALL")
 public class WList implements TabCompleter {
     private final List<String> completer = new ArrayList<>();
+
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         completer.clear();
-        if(args.length==1){
-            for(MWorld world : MultiWorlds.worldList){
+        if (args.length == 1) {
+            for (MWorld world : MultiWorlds.worldList) {
                 addString(world.getWorld().getName());
             }
         }
-        if(args.length==2){
-            addStrings("add","list","off","on","remove");
+        if (args.length == 2) {
+            addStrings("add", "list", "off", "on", "remove");
         }
-        if(args.length==3){
-            if(args[2].equalsIgnoreCase("add")){
-                for(Player player : Bukkit.getOnlinePlayers()){
+        if (args.length == 3) {
+            if (args[2].equalsIgnoreCase("add")) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     addString(player.getName());
                 }
             }
-            if(args[2].equalsIgnoreCase("remove")){
-                if(MultiWorlds.worldList.getMWorld(args[0])!=null){
+            if (args[2].equalsIgnoreCase("remove")) {
+                if (MultiWorlds.worldList.getMWorld(args[0]) != null) {
                     MWorld world = MultiWorlds.worldList.getMWorld(args[0]);
-                    for(UUID uuid : world.getWhitelist()){
+                    for (UUID uuid : world.getWhitelist()) {
                         Player player = Bukkit.getPlayer(uuid);
-                        if(player!=null){
+                        if (player != null) {
                             addString(player.getName());
-                        }else {
+                        } else {
                             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
                             addString(offlinePlayer.getName());
                             MultiWorlds.tempNames.put(offlinePlayer.getName(), uuid);
@@ -72,17 +73,20 @@ public class WList implements TabCompleter {
         return completer;
     }
 
-    private void addBoolean(){
+    private void addBoolean() {
         completer.add("true");
         completer.add("false");
     }
-    private void addString(String value){
+
+    private void addString(String value) {
         completer.add(value);
     }
-    private void addStrings(String... values){
+
+    private void addStrings(String... values) {
         completer.addAll(Arrays.asList(values));
     }
-    private void addObject(Object value){
+
+    private void addObject(Object value) {
         completer.add(String.valueOf(value));
     }
 }

@@ -29,6 +29,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+
 @SuppressWarnings("ALL")
 public class MWDelete implements CommandExecutor {
     @Override
@@ -36,22 +37,23 @@ public class MWDelete implements CommandExecutor {
         MWorld mWorld = MultiWorlds.worldList.getMWorld(args[0]);
         if (mWorld != null) {
             File file = new File(Bukkit.getWorldContainer() + "/" + mWorld.getWorld().getName());
-            for (Player player : Bukkit.getOnlinePlayers()){
-                if(player.getWorld().equals(mWorld.getWorld())){
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.getWorld().equals(mWorld.getWorld())) {
                     MWorld world = MultiWorlds.worldList.getMWorld(MultiWorlds.config.getString("spawnworld"));
-                    if(world!=null){
+                    if (world != null) {
                         player.teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
-                    }else player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                    } else
+                        player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
                 }
             }
-            Bukkit.unloadWorld(mWorld.getWorld(),false);
+            Bukkit.unloadWorld(mWorld.getWorld(), false);
             MultiWorlds.worldList.remove(mWorld);
             boolean result = deleteDirectory(file);
-            if(result){
+            if (result) {
                 sender.sendMessage("§aDie Welt §6" + mWorld.getWorld().getName() + "§a wurde §cgelöscht§a!");
-            }else {
-                if(Bukkit.getWorlds().contains(mWorld.getWorld()))
-                MultiWorlds.worldList.add(mWorld);
+            } else {
+                if (Bukkit.getWorlds().contains(mWorld.getWorld()))
+                    MultiWorlds.worldList.add(mWorld);
                 sender.sendMessage("§cDie Welt konnte nicht gelöscht werden!");
             }
         }

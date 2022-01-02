@@ -18,20 +18,23 @@
 
 package ch.gamepowerx.multiworlds.util;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class MWorldList extends ArrayList<MWorld> {
 
-    public MWorldList(MWorld... worlds){
+    public MWorldList(MWorld... worlds) {
         this.addAll(Arrays.asList(worlds));
     }
 
-    public MWorld getMWorld(World world){
-        if(containsWorld(world)){
-            for(MWorld mWorld : this){
-                if(mWorld.getWorld().equals(world)){
+    public MWorld getMWorld(World world) {
+        if (containsWorld(world)) {
+            for (MWorld mWorld : this) {
+                if (mWorld.getWorld().equals(world)) {
                     return mWorld;
                 }
             }
@@ -39,25 +42,25 @@ public class MWorldList extends ArrayList<MWorld> {
         return null;
     }
 
-    public MWorld getMWorld(String worldName){
+    public MWorld getMWorld(String worldName) {
         World world = Bukkit.getWorld(worldName);
-        if(world!=null){
+        if (world != null) {
             return getMWorld(world);
-        }else
-        return null;
+        } else
+            return null;
     }
 
-    public Collection<String> getWorldNames(){
+    public Collection<String> getWorldNames() {
         Collection<String> worldNames = new ArrayList<>();
-        for(MWorld world : this){
+        for (MWorld world : this) {
             worldNames.add(world.getWorld().getName());
         }
         return worldNames;
     }
 
-    public boolean containsWorld(World world){
-        for(MWorld mWorld : this){
-            if(mWorld.getWorld().equals(world)){
+    public boolean containsWorld(World world) {
+        for (MWorld mWorld : this) {
+            if (mWorld.getWorld().equals(world)) {
                 return true;
             }
         }

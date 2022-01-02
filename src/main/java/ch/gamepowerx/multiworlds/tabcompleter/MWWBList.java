@@ -35,12 +35,12 @@ public class MWWBList implements TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         completer.clear();
-        if(args.length==1){
+        if (args.length == 1) {
             addString("add");
             addString("remove");
             addString("off");
             addString("on");
-        }else if(args.length==2 | args.length==3){
+        } else if (args.length == 2 | args.length == 3) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 addString(p.getName());
             }
@@ -48,13 +48,16 @@ public class MWWBList implements TabCompleter {
         return completer;
     }
 
-    private void addBoolean(){ completer.add("true"); completer.add("false"); }
+    private void addBoolean() {
+        completer.add("true");
+        completer.add("false");
+    }
 
-    private void addString(String value){
+    private void addString(String value) {
         completer.add(value);
     }
 
-    private void addObject(Object value){
+    private void addObject(Object value) {
         completer.add(String.valueOf(value));
     }
 }

@@ -30,10 +30,11 @@ import java.util.List;
 
 public class Worlds implements TabCompleter {
     private final List<String> completer = new ArrayList<>();
+
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         completer.clear();
-        for(MWorld mworld : MultiWorlds.worldList){
+        for (MWorld mworld : MultiWorlds.worldList) {
             completer.add(mworld.getWorld().getName());
         }
         return completer;

@@ -23,7 +23,10 @@ import ch.gamepowerx.multiworlds.tabcompleter.MWWBList;
 import ch.gamepowerx.multiworlds.tabcompleter.Worlds;
 import ch.gamepowerx.multiworlds.util.MWorld;
 import ch.gamepowerx.multiworlds.util.MWorldList;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.World;
+import org.bukkit.WorldType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -43,7 +46,7 @@ public final class MultiWorlds extends JavaPlugin {
     public static MWorldList worldList;
     public static FileConfiguration worldsConfig;
     public static FileConfiguration config;
-    public static final HashMap<String,UUID> tempNames = new HashMap<>();
+    public static final HashMap<String, UUID> tempNames = new HashMap<>();
     public static final List<CommandSender> tempHelp = new ArrayList<>();
     private static String version;
     private static MultiWorlds plugin;
@@ -70,7 +73,7 @@ public final class MultiWorlds extends JavaPlugin {
         saveConfigs();
     }
 
-    private void loadWorlds(){
+    private void loadWorlds() {
         worldList = new MWorldList();
         if (!getDataFolder().exists())
             getDataFolder().mkdir();
@@ -86,47 +89,46 @@ public final class MultiWorlds extends JavaPlugin {
         worldsConfig = new YamlConfiguration();
         try {
             worldsConfig.load(file);
-        } catch (IOException| InvalidConfigurationException exception) {
+        } catch (IOException | InvalidConfigurationException exception) {
             exception.printStackTrace();
         }
-        if(config.getBoolean("firstrun")){
-            for(World world : Bukkit.getWorlds()){
+        if (config.getBoolean("firstrun")) {
+            for (World world : Bukkit.getWorlds()) {
                 String worldName = world.getName();
-                worldsConfig.set(worldName+".name",worldName);
-                worldsConfig.set(worldName+".specifiedgamemode",false);
-                worldsConfig.set(worldName+".gamemode",null);
-                worldsConfig.set(worldName+".maxslots",config.get("standardmaxslots"));
+                worldsConfig.set(worldName + ".name", worldName);
+                worldsConfig.set(worldName + ".specifiedgamemode", false);
+                worldsConfig.set(worldName + ".gamemode", null);
+                worldsConfig.set(worldName + ".maxslots", config.get("standardmaxslots"));
                 MWorld mWorld = new MWorld(world);
                 worldList.add(mWorld);
             }
-            config.set("firstrun",false);
-        }else {
-            for(String worldName : worldsConfig.getKeys(false)){
-                //System.out.println(worldName);
+            config.set("firstrun", false);
+        } else {
+            for (String worldName : worldsConfig.getKeys(false)) {
                 World world = Bukkit.getWorld(worldName);
-                if(world!=null){
+                if (world != null) {
                     List<UUID> whitelist = new ArrayList<>();
                     List<UUID> blacklist = new ArrayList<>();
-                    for(String uuid : worldsConfig.getStringList(worldName+".whitelist")){
+                    for (String uuid : worldsConfig.getStringList(worldName + ".whitelist")) {
                         whitelist.add(UUID.fromString(uuid));
                     }
-                    for(String uuid : worldsConfig.getStringList(worldName+".blacklist")){
+                    for (String uuid : worldsConfig.getStringList(worldName + ".blacklist")) {
                         blacklist.add(UUID.fromString(uuid));
                     }
-                    if(worldsConfig.getBoolean(worldName+".specifiedgamemode")) {
-                        MWorld mWorld = new MWorld(world, worldsConfig.getInt(worldName + ".maxslots"),GameMode.valueOf(Objects.requireNonNull(worldsConfig.getString(worldName + ".gamemode")).toUpperCase()),whitelist,blacklist);
+                    if (worldsConfig.getBoolean(worldName + ".specifiedgamemode")) {
+                        MWorld mWorld = new MWorld(world, worldsConfig.getInt(worldName + ".maxslots"), GameMode.valueOf(Objects.requireNonNull(worldsConfig.getString(worldName + ".gamemode")).toUpperCase()), whitelist, blacklist);
                         worldList.add(mWorld);
-                    }else {
-                        MWorld mWorld = new MWorld(world,worldsConfig.getInt(worldName + ".maxslots"),whitelist,blacklist);
+                    } else {
+                        MWorld mWorld = new MWorld(world, worldsConfig.getInt(worldName + ".maxslots"), whitelist, blacklist);
                         worldList.add(mWorld);
                     }
 
-                }else {
-                    MWorld mWorld = new MWorld(worldsConfig.getString(worldName+".name"), WorldType.NORMAL,true,false, worldsConfig.getInt(worldName + ".maxslots"));
+                } else {
+                    MWorld mWorld = new MWorld(worldsConfig.getString(worldName + ".name"), WorldType.NORMAL, true, false, worldsConfig.getInt(worldName + ".maxslots"));
                     worldList.add(mWorld);
                 }
             }
-            for(Player player : Bukkit.getOnlinePlayers()){
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 MWorld world = worldList.getMWorld(player.getWorld());
                 world.joinWorld(player);
             }
@@ -139,28 +141,28 @@ public final class MultiWorlds extends JavaPlugin {
         }
     }
 
-    public void saveWorldsToConfig(){
-        for(MWorld mWorld : worldList){
+    public void saveWorldsToConfig() {
+        for (MWorld mWorld : worldList) {
             String worldName = mWorld.getWorld().getName();
-            worldsConfig.set(worldName + ".name",worldName);
-            worldsConfig.set(worldName + ".specifiedgamemode",mWorld.isGameModeSpecified());
-            if(mWorld.isGameModeSpecified())
-            worldsConfig.set(worldName + ".gamemode",mWorld.getGameMode().toString());
-            worldsConfig.set(worldName + ".maxslots",mWorld.getMaxPlayers());
+            worldsConfig.set(worldName + ".name", worldName);
+            worldsConfig.set(worldName + ".specifiedgamemode", mWorld.isGameModeSpecified());
+            if (mWorld.isGameModeSpecified())
+                worldsConfig.set(worldName + ".gamemode", mWorld.getGameMode().toString());
+            worldsConfig.set(worldName + ".maxslots", mWorld.getMaxPlayers());
             List<String> whitelist = new ArrayList<>();
             List<String> blacklist = new ArrayList<>();
-            for(UUID uuid : mWorld.getWhitelist()){
+            for (UUID uuid : mWorld.getWhitelist()) {
                 whitelist.add(uuid.toString());
             }
-            for(UUID uuid : mWorld.getBlacklist()){
+            for (UUID uuid : mWorld.getBlacklist()) {
                 blacklist.add(uuid.toString());
             }
-            worldsConfig.set(worldName + ".whitelist",whitelist);
-            worldsConfig.set(worldName + ".blacklist",blacklist);
+            worldsConfig.set(worldName + ".whitelist", whitelist);
+            worldsConfig.set(worldName + ".blacklist", blacklist);
         }
     }
 
-    public void saveConfigs(){
+    public void saveConfigs() {
         try {
             worldsConfig.save(new File(getDataFolder(), "worlds.yml"));
             config.save(new File(getDataFolder(), "config.yml"));
@@ -169,7 +171,7 @@ public final class MultiWorlds extends JavaPlugin {
         }
     }
 
-    public void loadConfig(){
+    public void loadConfig() {
         if (!getDataFolder().exists())
             getDataFolder().mkdir();
         File file = new File(getDataFolder(), "config.yml");
@@ -182,14 +184,14 @@ public final class MultiWorlds extends JavaPlugin {
             }
         }
         try {
-           getConfig().load(file);
+            getConfig().load(file);
         } catch (IOException | InvalidConfigurationException exception) {
             exception.printStackTrace();
         }
         config = getConfig();
     }
 
-    private void registerCommandsAndListener(){
+    private void registerCommandsAndListener() {
         Objects.requireNonNull(getCommand("mwgamerule")).setExecutor(new MWGameRule());
         Objects.requireNonNull(getCommand("mwgamerule")).setTabCompleter(new ch.gamepowerx.multiworlds.tabcompleter.MWGameRule());
         Objects.requireNonNull(getCommand("mwcreate")).setExecutor(new MWCreate());
@@ -208,10 +210,10 @@ public final class MultiWorlds extends JavaPlugin {
         Objects.requireNonNull(getCommand("mwdelete")).setExecutor(new MWDelete());
         Objects.requireNonNull(getCommand("mwdelete")).setTabCompleter(new Worlds());
         Objects.requireNonNull(getCommand("mwver")).setExecutor(new MWVer());
-        Bukkit.getPluginManager().registerEvents(new Listeners(),this);
+        Bukkit.getPluginManager().registerEvents(new Listeners(), this);
     }
 
-    public static String getVersion(){
+    public static String getVersion() {
         return version;
     }
 }

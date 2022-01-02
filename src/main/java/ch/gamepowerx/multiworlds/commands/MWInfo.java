@@ -32,21 +32,21 @@ import java.util.Objects;
 public class MWInfo implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if(args.length==1) {
+        if (args.length == 1) {
             MWorld world = MultiWorlds.worldList.getMWorld(args[0]);
             if (world != null) {
                 sender.sendMessage("-----------------------------------------------------");
                 sender.sendMessage("Name: " + world.getWorld().getName());
                 sender.sendMessage("Slots: " + world.getPlayerCount() + " / " + world.getMaxPlayers());
-                if(world.getWorld().getWorldType()!=null)
-                sender.sendMessage("Type: " + world.getWorld().getWorldType().getName());
+                if (world.getWorld().getWorldType() != null)
+                    sender.sendMessage("Type: " + world.getWorld().getWorldType().getName());
                 if (world.isGameModeSpecified())
                     sender.sendMessage("GameMode: " + world.getGameMode().name().toLowerCase());
                 sender.sendMessage("-----------------------------------------------------");
                 return true;
             } else
                 sender.sendMessage("§cError die Welt existiert nicht oder wurde nicht geladen!");
-        }else {
+        } else {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 MWorld world = MultiWorlds.worldList.getMWorld(player.getWorld());
@@ -63,8 +63,8 @@ public class MWInfo implements CommandExecutor {
                     sender.sendMessage("§cError die Welt existiert nicht oder wurde nicht geladen!");
                 }
                 return true;
-            }else
-            return false;
+            } else
+                return false;
         }
         return true;
     }

@@ -6,7 +6,7 @@ firstrun: true
 
 # Only modify if you want to reset everything.
 
-standardmaxslots: 20
+standardmaxslots: -1
 
 # Standard Maximum pro Welt
 

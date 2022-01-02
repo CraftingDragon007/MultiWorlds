@@ -27,6 +27,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+
 @SuppressWarnings("ALL")
 public class MWCreate implements CommandExecutor {
     @Override
@@ -63,28 +64,28 @@ public class MWCreate implements CommandExecutor {
             }
             MultiWorlds.worldList.add(mWorld);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
 
             sender.sendMessage("§cMindestens ein §lFehler §r§cist aufgetreten! Überprüfen sie die Argumente!");
             return false;
         }
     }
 
-   private Boolean isWorldType(String type) {
-       try {
-           WorldType.valueOf(type.toUpperCase());
-           return true;
-       } catch (IllegalArgumentException e) {
-           return false;
-       }
-   }
+    private Boolean isWorldType(String type) {
+        try {
+            WorldType.valueOf(type.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 
-   private Boolean isGameMode(String gameMode){
-       try {
-           GameMode.valueOf(gameMode);
-           return true;
-       } catch (IllegalArgumentException e) {
-           return false;
-       }
-   }
+    private Boolean isGameMode(String gameMode) {
+        try {
+            GameMode.valueOf(gameMode);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 }
