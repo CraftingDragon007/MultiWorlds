@@ -26,7 +26,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ch.gamepowerx.notes.Application</mainClass>
+                            <mainClass>ch.gamepowerx.multiworlds.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
