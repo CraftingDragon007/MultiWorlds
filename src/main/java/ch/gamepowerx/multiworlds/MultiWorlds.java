@@ -63,7 +63,6 @@ public final class MultiWorlds extends JavaPlugin {
         loadConfig();
         loadWorlds();
         registerCommandsAndListener();
-        // Plugin startup logic
     }
 
     @Override
@@ -139,6 +138,14 @@ public final class MultiWorlds extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Bukkit.getScheduler().runTaskLater(this, ()-> {
+            for(World world : Bukkit.getWorlds()){
+                if(!worldList.containsWorld(world)){
+                    MWorld mWorld = new MWorld(world);
+                    worldList.add(mWorld);
+                }
+            }
+        },0);
     }
 
     public void saveWorldsToConfig() {

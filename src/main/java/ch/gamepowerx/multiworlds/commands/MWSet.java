@@ -108,6 +108,11 @@ public class MWSet implements CommandExecutor {
                         } else player.sendMessage("§cUngültiges Argument: " + args[1]);
                         break;
                 }
+            }else if(args.length == 1){
+                if(args[0].equalsIgnoreCase("spawn")) {
+                    mWorld.getWorld().setSpawnLocation(player.getLocation());
+                    player.sendMessage("§aDer Spawnpoint dieser Welt wurde auf §6" + player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " " + player.getLocation().getBlockZ() + "§a festgelegt!");
+                }
             }
         }
         return true;
