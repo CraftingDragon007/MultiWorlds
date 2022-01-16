@@ -241,7 +241,7 @@ public class MWorld {
 
     public boolean joinWorld(Player player, World fallbackWorld) {
         boolean success = false;
-        if (maxPlayers != -1)
+        if (maxPlayers != -1) {
             if (playerList.size() < maxPlayers) {
                 if (!playerList.contains(player)) {
                     playerList.add(player);
@@ -260,16 +260,17 @@ public class MWorld {
                 this.leaveWorld(player);
                 player.teleport(world.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
             }
-        if (whitelistEnabled) {
-            if (whitelist.contains(player.getUniqueId())) {
-                success = true;
-            } else success = player.hasPermission("MW.bypassMWWBList");
-        }
-        if (blacklistEnabled) {
-            if (!blacklist.contains(player.getUniqueId())) {
-                success = true;
-            } else success = player.hasPermission("MW.bypassMWWBList");
-        }
+            if (whitelistEnabled) {
+                if (whitelist.contains(player.getUniqueId())) {
+                    success = true;
+                } else success = player.hasPermission("MW.bypassMWWBList");
+            }
+            if (blacklistEnabled) {
+                if (!blacklist.contains(player.getUniqueId())) {
+                    success = true;
+                } else success = player.hasPermission("MW.bypassMWWBList");
+            }
+        }else success = true;
         return success;
     }
 
